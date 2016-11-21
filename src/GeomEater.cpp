@@ -8,11 +8,27 @@ GeomEater::GeomEater(TriMesh::Format format)
 }
 
 TriMesh const & GeomEater::getMesh() {
-	return * mMainMesh;
+	return *mMainMesh;
+}
+
+TriMeshRef GeomEater::getMeshRef() {
+	return mMainMesh;
 }
 
 uint8_t GeomEater::getAttribDims(geom::Attrib attr) const {
 	return mMainMesh->getAttribDims(attr);
+}
+
+void copyFloatDataVector(uint8_t srcDims, float const * srcData, size_t numVerts, uint8_t destDims, std::vector<float> * targetVector) {
+	std::vector<float> temp(destDims * numVerts);
+	geom::copyData(srcDims, srcData, numVerts, destDims, 0, temp.data());
+	targetVector->insert(targetVector->end(), temp.begin(), temp.end());
+}
+
+void copyVectorDataVector(uint8_t srcDims, float const * srcData, size_t numVerts, uint8_t destDims, std::vector<vec3> * targetVector) {
+	std::vector<vec3> temp(numVerts);
+	geom::copyData(srcDims, srcData, numVerts, destDims, 0, glm::value_ptr(*temp.data()));
+	targetVector->insert(targetVector->end(), temp.begin(), temp.end());
 }
 
 void GeomEater::copyAttrib(geom::Attrib attr, uint8_t srcAttrDims, size_t strideBytes, float const * srcData, size_t numVertices) {
@@ -23,62 +39,63 @@ void GeomEater::copyAttrib(geom::Attrib attr, uint8_t srcAttrDims, size_t stride
 		return;
 	}
 
-	std::vector<float> * floatDataVec;
-	std::vector<vec3> * vecDataVec;
-	// This is such a hacky switch statement. Automatic drop-through is intended behavior...
 	switch (attr) {
+		// Vectors of floats
 		case geom::Attrib::POSITION:
-			floatDataVec = & mMainMesh->getBufferPositions();
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferPositions());
+		break;
 		case geom::Attrib::COLOR:
-			floatDataVec = & mMainMesh->getBufferColors();
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferColors());
+		break;
 		case geom::Attrib::TEX_COORD_0:
-			floatDataVec = & mMainMesh->getBufferTexCoords0();
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferTexCoords0());
+		break;
 		case geom::Attrib::TEX_COORD_1:
-			floatDataVec = & mMainMesh->getBufferTexCoords1();
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferTexCoords1());
+		break;
 		case geom::Attrib::TEX_COORD_2:
-			floatDataVec = & mMainMesh->getBufferTexCoords2();
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferTexCoords2());
+		break;
 		case geom::Attrib::TEX_COORD_3:
-			floatDataVec = & mMainMesh->getBufferTexCoords3();
-
-			// So much potential for a segfault lol
-			floatDataVec->resize(floatDataVec->size() + destAttrDims * numVertices);
-			geom::copyData(srcAttrDims, srcData, numVertices, destAttrDims, 0, & (* floatDataVec->end()));
+			copyFloatDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBufferTexCoords3());
 		break;
-
+		// Vectors of vec3
 		case geom::Attrib::NORMAL:
-			vecDataVec = & mMainMesh->getNormals();
-		case geom::Attrib::TANGENT:
-			vecDataVec = & mMainMesh->getTangents();
-		case geom::Attrib::BITANGENT:
-			vecDataVec = & mMainMesh->getBitangents();
-
-			// Potential segfault alert!!
-			vecDataVec->resize(vecDataVec->size() + numVertices);
-			geom::copyData(srcAttrDims, srcData, numVertices, destAttrDims, 0, (float *) (& (* vecDataVec->end())));
+			copyVectorDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getNormals());
 		break;
-
+		case geom::Attrib::TANGENT:
+			copyVectorDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getTangents());
+		break;
+		case geom::Attrib::BITANGENT:
+			copyVectorDataVector(srcAttrDims, srcData, numVertices, destAttrDims, & mMainMesh->getBitangents());
+		break;
+		// No such thing!
 		default:
 			throw geom::ExcMissingAttrib();
 	}
 }
 
-void GeomEater::copyIndices(geom::Primitive primitive, uint32_t const * source, size_t numIndices, uint8_t numBytesPerIndex) {
-	size_t targetIndices = numIndices;
+void GeomEater::copyIndices(geom::Primitive primitive, uint32_t const * sourceData, size_t inputNumIndices, uint8_t numBytesPerIndex) {
+	size_t targetNumIndices = inputNumIndices;
 	if (primitive == geom::Primitive::TRIANGLE_STRIP || primitive == geom::Primitive::TRIANGLE_FAN) {
 		// Own indices need to be for triangles, so there are many more of them
-		targetIndices = (numIndices - 2) * 3;
+		targetNumIndices = (inputNumIndices - 2) * 3;
 	}
 
 	uint32_t meshNumIndices = mMainMesh->getNumIndices();
-	std::unique_ptr<uint32_t[]> offsetIndices(new uint32_t[numIndices]);
-	for (size_t idx = 0; idx < numIndices; idx++) {
-		offsetIndices[idx] = meshNumIndices + source[idx];
+	std::vector<uint32_t> offsetIndices(inputNumIndices);
+	for (size_t idx = 0; idx < inputNumIndices; idx++) {
+		offsetIndices[idx] = meshNumIndices + sourceData[idx];
 	}
 
-	std::vector<uint32_t> indexBuffer = mMainMesh->getIndices();
-	indexBuffer.resize(indexBuffer.size() + targetIndices);
-	// Copy indexes into the space starting at 1 past the end of the index buffer
-	copyIndexDataForceTriangles(primitive, offsetIndices.get(), targetIndices, 0, & (*indexBuffer.end()));
+	// Copy over the indices from the buffer with offsets, making any necessary adjustments to convert the
+	// primitive to triangles
+	std::vector<uint32_t> targetBuffer(targetNumIndices);
+	copyIndexDataForceTriangles(primitive, offsetIndices.data(), targetNumIndices, 0, targetBuffer.data());
+	
+	// Copy indexes into the space starting at the end of the index buffer
+	std::vector<uint32_t> & indexBuffer = mMainMesh->getIndices();
+	indexBuffer.insert(indexBuffer.end(), targetBuffer.begin(), targetBuffer.end());
 }
 
 geom::AttribSet GeomEater::getSupportedAttribs() {

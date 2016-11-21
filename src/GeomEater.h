@@ -20,6 +20,7 @@ public:
 	geom::AttribSet getSupportedAttribs();
 	void eat(geom::Source const & src);
 	TriMesh const & getMesh();
+	TriMeshRef getMeshRef();
 
 private:
 	TriMeshRef mMainMesh;
