@@ -12,7 +12,9 @@ using namespace ci::app;
 using namespace std;
 
 class pollen_projectApp : public App {
-  public:
+public:
+	static void prepSettings(Settings * settings);
+
 	void setup() override;
 	void mouseDown( MouseEvent event ) override;
 	void update() override;
@@ -23,25 +25,27 @@ class pollen_projectApp : public App {
 	CameraPersp mCamera;
 	CameraUi mUiCamera;
 
-	TriMeshRef mPollenMesh;
 	gl::GlslProgRef mShader;
 	GeomEater mMeshEater;
 };
+
+void pollen_projectApp::prepSettings(Settings * settings) {
+	settings->setHighDensityDisplayEnabled();
+}
 
 void pollen_projectApp::setup()
 {
 	mCamera.lookAt(vec3(0, 0, 30), vec3(0), vec3(0, 1, 0));
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
-	auto ico = geom::Icosahedron() >> geom::Translate(10, 0, 0) >> geom::Constant(geom::Attrib::COLOR, vec4(0, 0.2, 0.8, 1.0));
-	auto cube = geom::Cube() >> geom::Translate(-10, 0, 0) >> geom::Constant(geom::Attrib::COLOR, vec4(0, 0.8, 0.2, 1.0));
-
-	mPollenMesh = TriMesh::create();
-
 	mMeshEater = GeomEater(TriMesh::Format().positions().normals().colors());
+	auto ico = geom::Icosahedron().colors();
 
-	mMeshEater.eat(ico);
-	mMeshEater.eat(cube);
+	for (int idx = 0; idx < 5; idx++) {
+		float angle = glm::two_pi<float>() / 5 * idx;
+		vec3 pos(cos(angle), sin(angle), 0);
+		mMeshEater.eat(ico >> geom::Translate(2.f * pos));
+	}
 
 	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
 
@@ -73,4 +77,4 @@ void pollen_projectApp::draw()
 	gl::draw(mMeshEater.getMesh());
 }
 
-CINDER_APP( pollen_projectApp, RendererGl )
+CINDER_APP( pollen_projectApp, RendererGl(RendererGl::Options().msaa(4)), & pollen_projectApp::prepSettings )
