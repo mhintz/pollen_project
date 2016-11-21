@@ -19,7 +19,7 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		7A699A03ED72428B93417E8F /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57E789FA45894DA7B50CA563 /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		A35DB991D6D14D269767DB3F /* pollen_projectApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3715B77774C44EA9F30B179 /* pollen_projectApp.cpp */; };
+		A35DB991D6D14D269767DB3F /* PollenProjectApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */; };
 		EF653AF41DDDE1D40099808D /* GeomEater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF653AF21DDDE1D40099808D /* GeomEater.cpp */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		57E789FA45894DA7B50CA563 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* pollen_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pollen_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9084830267634D70830E69C8 /* pollen_project_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = pollen_project_Prefix.pch; sourceTree = "<group>"; };
-		B3715B77774C44EA9F30B179 /* pollen_projectApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = pollen_projectApp.cpp; path = ../src/pollen_projectApp.cpp; sourceTree = "<group>"; };
+		B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PollenProjectApp.cpp; path = ../src/PollenProjectApp.cpp; sourceTree = "<group>"; };
 		DBC3393AE824478B864F1AA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA3CF927205745458314B592 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		EF653AF21DDDE1D40099808D /* GeomEater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeomEater.cpp; path = ../src/GeomEater.cpp; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			children = (
 				EF653AF21DDDE1D40099808D /* GeomEater.cpp */,
 				EF653AF31DDDE1D40099808D /* GeomEater.h */,
-				B3715B77774C44EA9F30B179 /* pollen_projectApp.cpp */,
+				B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -224,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A35DB991D6D14D269767DB3F /* pollen_projectApp.cpp in Sources */,
+				A35DB991D6D14D269767DB3F /* PollenProjectApp.cpp in Sources */,
 				EF653AF41DDDE1D40099808D /* GeomEater.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

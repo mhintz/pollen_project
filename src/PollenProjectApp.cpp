@@ -11,7 +11,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class pollen_projectApp : public App {
+class PollenProjectApp : public App {
 public:
 	static void prepSettings(Settings * settings);
 
@@ -29,11 +29,11 @@ public:
 	GeomEater mMeshEater;
 };
 
-void pollen_projectApp::prepSettings(Settings * settings) {
+void PollenProjectApp::prepSettings(Settings * settings) {
 	settings->setHighDensityDisplayEnabled();
 }
 
-void pollen_projectApp::setup()
+void PollenProjectApp::setup()
 {
 	mCamera.lookAt(vec3(0, 0, 30), vec3(0), vec3(0, 1, 0));
 	mUiCamera = CameraUi(&mCamera, getWindow());
@@ -52,21 +52,21 @@ void pollen_projectApp::setup()
 	gl::enable(GL_DEPTH_TEST);
 }
 
-void pollen_projectApp::mouseDown( MouseEvent event )
+void PollenProjectApp::mouseDown( MouseEvent event )
 {
 }
 
-void pollen_projectApp::keyDown(KeyEvent event) {
+void PollenProjectApp::keyDown(KeyEvent event) {
 	if (event.getCode() == KeyEvent::KEY_ESCAPE) {
 		quit();
 	}
 }
 
-void pollen_projectApp::update()
+void PollenProjectApp::update()
 {
 }
 
-void pollen_projectApp::draw()
+void PollenProjectApp::draw()
 {
 	gl::clear( Color( 0, 0, 0 ) ); 
 
@@ -77,4 +77,4 @@ void pollen_projectApp::draw()
 	gl::draw(mMeshEater.getMesh());
 }
 
-CINDER_APP( pollen_projectApp, RendererGl(RendererGl::Options().msaa(4)), & pollen_projectApp::prepSettings )
+CINDER_APP( PollenProjectApp, RendererGl(RendererGl::Options().msaa(4)), & PollenProjectApp::prepSettings )
