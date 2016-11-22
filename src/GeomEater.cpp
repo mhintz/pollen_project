@@ -3,7 +3,7 @@
 namespace cinder {
 
 GeomEater::GeomEater(TriMesh::Format format)
-: mMainMesh(TriMesh::create(format)) {
+: mMainMesh(TriMesh::create(format)), mBaseNumVertices(0) {
 
 }
 
@@ -82,10 +82,9 @@ void GeomEater::copyIndices(geom::Primitive primitive, uint32_t const * sourceDa
 		targetNumIndices = (inputNumIndices - 2) * 3;
 	}
 
-	uint32_t meshNumIndices = mMainMesh->getNumIndices();
 	std::vector<uint32_t> offsetIndices(inputNumIndices);
 	for (size_t idx = 0; idx < inputNumIndices; idx++) {
-		offsetIndices[idx] = meshNumIndices + sourceData[idx];
+		offsetIndices[idx] = mBaseNumVertices + sourceData[idx];
 	}
 
 	// Copy over the indices from the buffer with offsets, making any necessary adjustments to convert the
@@ -96,6 +95,13 @@ void GeomEater::copyIndices(geom::Primitive primitive, uint32_t const * sourceDa
 	// Copy indexes into the space starting at the end of the index buffer
 	std::vector<uint32_t> & indexBuffer = mMainMesh->getIndices();
 	indexBuffer.insert(indexBuffer.end(), targetBuffer.begin(), targetBuffer.end());
+
+	// Each time this function is called, it's assumed that a new mesh has been copied in.
+	// This updates the base vertex count for the next time indexes are added to the mesh.
+	// This is a terrible, regrettable hack, but it's necessary to account for the way that cinder
+	// geom::Source objects perform the copying and loading of vertex data, without regard for the timing
+	// of the call to copyIndices
+	mBaseNumVertices = mMainMesh->getNumVertices();
 }
 
 geom::AttribSet GeomEater::getSupportedAttribs() {

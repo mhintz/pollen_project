@@ -24,6 +24,7 @@ public:
 
 private:
 	TriMeshRef mMainMesh;
+	uint32_t mBaseNumVertices;
 };
 
 } // namespace cinder
