@@ -39,12 +39,23 @@ void PollenProjectApp::setup()
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
 	mMeshEater = GeomEater(TriMesh::Format().positions().normals().colors());
-	auto ico = geom::Icosahedron().colors();
 
-	for (int idx = 0; idx < 5; idx++) {
-		float angle = glm::two_pi<float>() / 5 * idx;
+	float baseRadius = 2.f;
+
+	auto base = geom::Sphere().radius(baseRadius).colors();
+	mMeshEater.eat(base);
+
+	auto ico = geom::Icosahedron().colors();
+	auto icoAdjustment = geom::Rotate(glm::radians(- 36.f - 90.f), vec3(0, 0, 1));
+
+	for (int idx = 0; idx < 4; idx++) {
+		float angle = glm::two_pi<float>() / 4 * idx;
 		vec3 pos(cos(angle), sin(angle), 0);
-		mMeshEater.eat(ico >> geom::Translate(2.f * pos));
+		mMeshEater.eat(ico >> icoAdjustment >> geom::Rotate(angle, vec3(0, 0, 1)) >> geom::Translate(baseRadius * pos));
+	}
+
+	for (int idx = -1; idx <= 1; idx += 2) {
+		mMeshEater.eat(ico >> icoAdjustment >> geom::Rotate(glm::radians(idx * 90.f), vec3(1, 0, 0)) >> geom::Translate(baseRadius * vec3(0, 0, idx)));
 	}
 
 	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
