@@ -5,7 +5,7 @@
 #include "cinder/CameraUi.h"
 #include "cinder/TriMesh.h"
 
-#include "GeomEater.h"
+#include "Pollen.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -26,7 +26,7 @@ public:
 	CameraUi mUiCamera;
 
 	gl::GlslProgRef mShader;
-	GeomEater mMeshEater;
+	PollenRef mPollen;
 };
 
 void PollenProjectApp::prepSettings(Settings * settings) {
@@ -38,27 +38,11 @@ void PollenProjectApp::setup()
 	mCamera.lookAt(vec3(0, 0, 30), vec3(0), vec3(0, 1, 0));
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
-	mMeshEater = GeomEater(TriMesh::Format().positions().normals().colors());
-
-	float baseRadius = 2.f;
-
-	auto base = geom::Sphere().radius(baseRadius).colors();
-	mMeshEater.eat(base);
-
-	auto ico = geom::Icosahedron().colors();
-	auto icoAdjustment = geom::Rotate(glm::radians(- 36.f - 90.f), vec3(0, 0, 1));
-
-	for (int idx = 0; idx < 4; idx++) {
-		float angle = glm::two_pi<float>() / 4 * idx;
-		vec3 pos(cos(angle), sin(angle), 0);
-		mMeshEater.eat(ico >> icoAdjustment >> geom::Rotate(angle, vec3(0, 0, 1)) >> geom::Translate(baseRadius * pos));
-	}
-
-	for (int idx = -1; idx <= 1; idx += 2) {
-		mMeshEater.eat(ico >> icoAdjustment >> geom::Rotate(glm::radians(idx * 90.f), vec3(1, 0, 0)) >> geom::Translate(baseRadius * vec3(0, 0, idx)));
-	}
-
 	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
+
+	mPollen = Pollen::create();
+
+	mPollen->generate();
 
 	gl::enable(GL_DEPTH_TEST);
 }
@@ -85,7 +69,7 @@ void PollenProjectApp::draw()
 
 	mShader->bind();
 
-	gl::draw(mMeshEater.getMesh());
+	gl::draw(mPollen->getMesh());
 }
 
 CINDER_APP( PollenProjectApp, RendererGl(RendererGl::Options().msaa(4)), & PollenProjectApp::prepSettings )
