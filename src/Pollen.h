@@ -5,6 +5,7 @@
 
 #include "cinder/TriMesh.h"
 
+#include "Math.h"
 #include "GeomEater.h"
 
 class Pollen;

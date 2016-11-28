@@ -62,7 +62,7 @@ void Pollen::generate() {
 		}
 		float tval = glm::smoothstep(0.0f, mSpineDistance, (float) sqrt(nearestDistance));
 		// return inPos * (1.0f + mSpineLength * (1.f / (float) pow(-tval - 1.f, 2.f)));
-		return inPos * (float) (1.0 + mSpineLength * pow(math<double>::min(cos(M_PI * tval / 2.0), 1.0 - fabs(tval)), 2.5));
+		return inPos * (float) (1.0 + mSpineLength * pow(fmin(cos(M_PI * tval / 2.0), 1.0 - fabs(tval)), 2.5));
 	});
 
 	mMesh.eat(modifiedBase >> geom::Scale(mRadius, mRadius, mRadius));
