@@ -7,6 +7,7 @@
 
 #include "Math.h"
 #include "GeomEater.h"
+#include "Gradient.h"
 
 class Pollen;
 typedef std::unique_ptr<Pollen> PollenBox;

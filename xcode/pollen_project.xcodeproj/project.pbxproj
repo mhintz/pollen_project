@@ -50,6 +50,7 @@
 		B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PollenProjectApp.cpp; path = ../src/PollenProjectApp.cpp; sourceTree = "<group>"; };
 		DBC3393AE824478B864F1AA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA3CF927205745458314B592 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		EF54FA721DECB8D000EF733F /* Gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradient.h; path = "../../../cinder/blocks/core-util/Gradient.h"; sourceTree = "<group>"; };
 		EF6936961DE432F10010239C /* Pollen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pollen.cpp; path = ../src/Pollen.cpp; sourceTree = "<group>"; };
 		EF6936971DE432F10010239C /* Pollen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pollen.h; path = ../src/Pollen.h; sourceTree = "<group>"; };
 		EF7B8F0C1DEC869A008D2A73 /* buildmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buildmesh.h; sourceTree = "<group>"; };
@@ -209,6 +210,7 @@
 		EF7B8F691DEC8F20008D2A73 /* core-util */ = {
 			isa = PBXGroup;
 			children = (
+				EF54FA721DECB8D000EF733F /* Gradient.h */,
 				EF7B8F6E1DEC9C86008D2A73 /* MeshHelpers.cpp */,
 				EF7B8F6F1DEC9C86008D2A73 /* MeshHelpers.h */,
 				EF7B8F631DEC8F1C008D2A73 /* GeomEater.cpp */,

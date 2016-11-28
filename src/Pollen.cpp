@@ -61,8 +61,18 @@ void Pollen::generate() {
 			}
 		}
 		float tval = glm::smoothstep(0.0f, mSpineDistance, (float) sqrt(nearestDistance));
-		// return inPos * (1.0f + mSpineLength * (1.f / (float) pow(-tval - 1.f, 2.f)));
 		return inPos * (float) (1.0 + mSpineLength * pow(fmin(cos(M_PI * tval / 2.0), 1.0 - fabs(tval)), 2.5));
+	});
+
+	Gradient<Color> testGradient = {
+	  { 0.0f, Color(0.0, 0.0, 0.0) }, // black
+	  { 1.0f, Color(0, 0, 0.515) }, // blue
+	  { 1.85f, Color(0.188, 0.835, 0.784) }, // turquoise
+	  { 2.0f, Color(1.0, 1.0, 0.702) } // yellow
+	};
+
+	modifiedBase = modifiedBase >> geom::ColorFromAttrib(geom::Attrib::POSITION, [this, & testGradient] (vec3 inPos) {
+		return testGradient.sample((float) length(inPos));
 	});
 
 	mMesh.eat(modifiedBase >> geom::Scale(mRadius, mRadius, mRadius));
