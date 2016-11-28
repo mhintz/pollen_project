@@ -5,12 +5,33 @@
 #include "cinder/CameraUi.h"
 #include "cinder/TriMesh.h"
 #include "cinder/params/Params.h"
+#include "cinder/Rand.h"
+
+#include "Node.hpp"
 
 #include "Pollen.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+
+struct Blob {
+	Blob(vec3 pos, vec3 vel, gl::BatchRef b) : mNode(pos, quat(), vec3(1)), mVel(vel), mBatch(b) {}
+
+	Node mNode;
+	vec3 mVel;
+	gl::BatchRef mBatch;
+
+	void update() {
+		mNode.translate(mVel);
+	}
+
+	void draw() {
+		gl::ScopedModelMatrix scpMat;
+		gl::multModelMatrix(mNode.matrix());
+		mBatch->draw();
+	}
+};
 
 class PollenProjectApp : public App {
 public:
@@ -24,12 +45,14 @@ public:
 	void keyDown(KeyEvent event) override;
 
 	void regeneratePollen();
+	void addPollen();
 
 	CameraPersp mCamera;
 	CameraUi mUiCamera;
 
 	gl::GlslProgRef mShader;
-	PollenRef mPollen;
+
+	std::vector<Blob> mPollenBalls;
 
 	params::InterfaceGlRef mParams;
 
@@ -52,14 +75,14 @@ void PollenProjectApp::setup()
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
 	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
-
-	regeneratePollen();
 }
 
-void PollenProjectApp::regeneratePollen() {
-	mPollen = Pollen::create();
-	mPollen->setSpineDistance(mSpineRadius);
-	mPollen->generate();
+void PollenProjectApp::addPollen() {
+	Pollen theBlob;
+	theBlob.setSpineDistance(mSpineRadius);
+	theBlob.generate();
+
+	mPollenBalls.push_back(Blob(vec3(0), randVec3() * 0.08f, gl::Batch::create(theBlob.getMesh(), mShader)));
 }
 
 void PollenProjectApp::mouseDown( MouseEvent event )
@@ -69,13 +92,20 @@ void PollenProjectApp::mouseDown( MouseEvent event )
 void PollenProjectApp::keyDown(KeyEvent event) {
 	if (event.getCode() == KeyEvent::KEY_ESCAPE) {
 		quit();
-	} else if (event.getCode() == KeyEvent::KEY_r) {
-		regeneratePollen();
 	}
 }
 
 void PollenProjectApp::update()
 {
+	for (auto & blob : mPollenBalls) {
+		blob.update();
+	}
+
+	if (getElapsedFrames() % 120 == 0) {
+		addPollen();
+	}
+
+	mPollenBalls.erase(std::remove_if(mPollenBalls.begin(), mPollenBalls.end(), [] (Blob & ball) { return length2(ball.mNode.position()) >= 10000.f; }), mPollenBalls.end());
 }
 
 void PollenProjectApp::draw()
@@ -86,7 +116,9 @@ void PollenProjectApp::draw()
 
 	mShader->bind();
 
-	gl::draw(mPollen->getMesh());
+	for (auto & blob : mPollenBalls) {
+		blob.draw();
+	}
 
 	mParams->draw();
 }
