@@ -6,7 +6,6 @@
 #include "cinder/TriMesh.h"
 
 #include "GeomEater.h"
-#include "SpatialMap.h"
 
 class Pollen;
 typedef std::unique_ptr<Pollen> PollenBox;
