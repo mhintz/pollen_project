@@ -4,6 +4,7 @@
 #include "cinder/Camera.h"
 #include "cinder/CameraUi.h"
 #include "cinder/TriMesh.h"
+#include "cinder/params/Params.h"
 
 #include "Pollen.h"
 
@@ -22,11 +23,17 @@ public:
 
 	void keyDown(KeyEvent event) override;
 
+	void regeneratePollen();
+
 	CameraPersp mCamera;
 	CameraUi mUiCamera;
 
 	gl::GlslProgRef mShader;
 	PollenRef mPollen;
+
+	params::InterfaceGlRef mParams;
+
+	float mSpineRadius = 0.87f;
 };
 
 void PollenProjectApp::prepSettings(Settings * settings) {
@@ -35,16 +42,24 @@ void PollenProjectApp::prepSettings(Settings * settings) {
 
 void PollenProjectApp::setup()
 {
+	mParams = params::InterfaceGl::create(getWindow(), "App parameters", toPixels(ivec2(200, 50)));
+
+	mParams->addParam("spineRadius", & mSpineRadius).min(0.0f).max(2.f).precision(2).step(0.01f);
+
+	gl::enable(GL_DEPTH_TEST);
+
 	mCamera.lookAt(vec3(0, 0, 30), vec3(0), vec3(0, 1, 0));
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
 	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
 
+	regeneratePollen();
+}
+
+void PollenProjectApp::regeneratePollen() {
 	mPollen = Pollen::create();
-
+	mPollen->setSpineDistance(mSpineRadius);
 	mPollen->generate();
-
-	gl::enable(GL_DEPTH_TEST);
 }
 
 void PollenProjectApp::mouseDown( MouseEvent event )
@@ -54,6 +69,8 @@ void PollenProjectApp::mouseDown( MouseEvent event )
 void PollenProjectApp::keyDown(KeyEvent event) {
 	if (event.getCode() == KeyEvent::KEY_ESCAPE) {
 		quit();
+	} else if (event.getCode() == KeyEvent::KEY_r) {
+		regeneratePollen();
 	}
 }
 
@@ -70,6 +87,8 @@ void PollenProjectApp::draw()
 	mShader->bind();
 
 	gl::draw(mPollen->getMesh());
+
+	mParams->draw();
 }
 
 CINDER_APP( PollenProjectApp, RendererGl(RendererGl::Options().msaa(4)), & PollenProjectApp::prepSettings )

@@ -8,7 +8,8 @@ Pollen::Pollen() {
 	mRadius = 3.f;
 	mSquish = 0.7f;
 	mNumSpines = 24;
-	mSpineLength = 0.1f;
+	mSpineLength = 1.f;
+	mSpineDistance = 0.45f;
 }
 
 TriMeshRef Pollen::getMeshRef() { return mMesh.getMeshRef(); }
@@ -49,7 +50,7 @@ void Pollen::generate() {
 
 	auto spikePoints = pointsOnSphere(mNumSpines);
 
-	auto modifiedBase = base >> geom::AttribFn<vec3, vec3>(geom::Attrib::POSITION, geom::Attrib::POSITION, [& spikePoints] (vec3 inPos) {
+	auto modifiedBase = base >> geom::AttribFn<vec3, vec3>(geom::Attrib::POSITION, geom::Attrib::POSITION, [this, & spikePoints] (vec3 inPos) {
 		float nearestAngle = glm::angle(inPos, spikePoints.at(0));
 		float nearestDistance = distance2(inPos, spikePoints.at(0));
 		for (auto & spike : spikePoints) {
@@ -59,7 +60,9 @@ void Pollen::generate() {
 				nearestDistance = distance2(inPos, spike);
 			}
 		}
-		return inPos * (float) pow(1.f * (1.f - nearestDistance / 1.5f), 2.f);
+		float tval = glm::smoothstep(0.0f, mSpineDistance, (float) sqrt(nearestDistance));
+		// return inPos * (1.0f + mSpineLength * (1.f / (float) pow(-tval - 1.f, 2.f)));
+		return inPos * (float) (1.0 + mSpineLength * pow(math<double>::min(cos(M_PI * tval / 2.0), 1.0 - fabs(tval)), 2.5));
 	});
 
 	mMesh.eat(modifiedBase >> geom::Scale(mRadius, mRadius, mRadius));

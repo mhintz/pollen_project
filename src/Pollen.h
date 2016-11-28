@@ -26,6 +26,8 @@ public:
 	ci::geom::Scale getSquish();
 	ci::vec3 squishPoint(ci::vec3 point);
 
+	void setSpineDistance(float newDist) { mSpineDistance = newDist; }
+
 	void generate();
 
 private:
@@ -35,4 +37,5 @@ private:
 	float mSquish;
 	int mNumSpines;
 	float mSpineLength;
+	float mSpineDistance;
 };
