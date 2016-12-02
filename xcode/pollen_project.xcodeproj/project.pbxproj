@@ -20,13 +20,13 @@
 		7A699A03ED72428B93417E8F /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57E789FA45894DA7B50CA563 /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A35DB991D6D14D269767DB3F /* PollenProjectApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */; };
+		EF0FC12C1DF0FA6400AA0EA6 /* CoreMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF0FC1291DF0FA6400AA0EA6 /* CoreMath.cpp */; };
 		EF6936981DE432F10010239C /* Pollen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF6936961DE432F10010239C /* Pollen.cpp */; };
 		EF7B8F1F1DEC869A008D2A73 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F0F1DEC869A008D2A73 /* Mesh.cpp */; };
 		EF7B8F201DEC869A008D2A73 /* MeshGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F111DEC869A008D2A73 /* MeshGroup.cpp */; };
 		EF7B8F271DEC869A008D2A73 /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F1A1DEC869A008D2A73 /* Vertex.cpp */; };
 		EF7B8F541DEC8E2E008D2A73 /* MeshBuilds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F521DEC8E2E008D2A73 /* MeshBuilds.cpp */; };
 		EF7B8F681DEC8F1C008D2A73 /* GeomEater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F631DEC8F1C008D2A73 /* GeomEater.cpp */; };
-		EF7B8F6B1DEC97B4008D2A73 /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F6A1DEC97B4008D2A73 /* Math.cpp */; };
 		EF7B8F701DEC9C86008D2A73 /* MeshHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F6E1DEC9C86008D2A73 /* MeshHelpers.cpp */; };
 /* End PBXBuildFile section */
 
@@ -50,12 +50,14 @@
 		B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PollenProjectApp.cpp; path = ../src/PollenProjectApp.cpp; sourceTree = "<group>"; };
 		DBC3393AE824478B864F1AA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA3CF927205745458314B592 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		EF54FA721DECB8D000EF733F /* Gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradient.h; path = "../../../cinder/blocks/core-util/Gradient.h"; sourceTree = "<group>"; };
+		EF0FC1291DF0FA6400AA0EA6 /* CoreMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreMath.cpp; path = "../../../cinder/blocks/core-util/CoreMath.cpp"; sourceTree = "<group>"; };
+		EF0FC12A1DF0FA6400AA0EA6 /* CoreMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreMath.h; path = "../../../cinder/blocks/core-util/CoreMath.h"; sourceTree = "<group>"; };
+		EF0FC12B1DF0FA6400AA0EA6 /* Gradient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Gradient.hpp; path = "../../../cinder/blocks/core-util/Gradient.hpp"; sourceTree = "<group>"; };
+		EF0FC12D1DF0FA6D00AA0EA6 /* MathBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathBase.h; sourceTree = "<group>"; };
 		EF54FA811DECC73100EF733F /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Item.hpp; path = "../../cinder/blocks/core-util/Item.hpp"; sourceTree = "<group>"; };
 		EF6936961DE432F10010239C /* Pollen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pollen.cpp; path = ../src/Pollen.cpp; sourceTree = "<group>"; };
 		EF6936971DE432F10010239C /* Pollen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pollen.h; path = ../src/Pollen.h; sourceTree = "<group>"; };
 		EF7B8F0C1DEC869A008D2A73 /* buildmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buildmesh.h; sourceTree = "<group>"; };
-		EF7B8F0E1DEC869A008D2A73 /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		EF7B8F0F1DEC869A008D2A73 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		EF7B8F101DEC869A008D2A73 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		EF7B8F111DEC869A008D2A73 /* MeshGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshGroup.cpp; sourceTree = "<group>"; };
@@ -66,10 +68,8 @@
 		EF7B8F531DEC8E2E008D2A73 /* MeshBuilds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshBuilds.h; sourceTree = "<group>"; };
 		EF7B8F631DEC8F1C008D2A73 /* GeomEater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeomEater.cpp; path = "../../../cinder/blocks/core-util/GeomEater.cpp"; sourceTree = "<group>"; };
 		EF7B8F641DEC8F1C008D2A73 /* GeomEater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeomEater.h; path = "../../../cinder/blocks/core-util/GeomEater.h"; sourceTree = "<group>"; };
-		EF7B8F651DEC8F1C008D2A73 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Math.h; path = "../../../cinder/blocks/core-util/Math.h"; sourceTree = "<group>"; };
 		EF7B8F661DEC8F1C008D2A73 /* Node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Node.hpp; path = "../../../cinder/blocks/core-util/Node.hpp"; sourceTree = "<group>"; };
 		EF7B8F671DEC8F1C008D2A73 /* NoiseWalker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NoiseWalker.hpp; path = "../../../cinder/blocks/core-util/NoiseWalker.hpp"; sourceTree = "<group>"; };
-		EF7B8F6A1DEC97B4008D2A73 /* Math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Math.cpp; path = "../../../cinder/blocks/core-util/Math.cpp"; sourceTree = "<group>"; };
 		EF7B8F6E1DEC9C86008D2A73 /* MeshHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshHelpers.cpp; path = "../../../cinder/blocks/core-util/MeshHelpers.cpp"; sourceTree = "<group>"; };
 		EF7B8F6F1DEC9C86008D2A73 /* MeshHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeshHelpers.h; path = "../../../cinder/blocks/core-util/MeshHelpers.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,11 +193,11 @@
 		EF7B8F081DEC869A008D2A73 /* buildmesh */ = {
 			isa = PBXGroup;
 			children = (
+				EF0FC12D1DF0FA6D00AA0EA6 /* MathBase.h */,
 				EF54FA811DECC73100EF733F /* Item.hpp */,
 				EF7B8F521DEC8E2E008D2A73 /* MeshBuilds.cpp */,
 				EF7B8F531DEC8E2E008D2A73 /* MeshBuilds.h */,
 				EF7B8F0C1DEC869A008D2A73 /* buildmesh.h */,
-				EF7B8F0E1DEC869A008D2A73 /* math.h */,
 				EF7B8F0F1DEC869A008D2A73 /* Mesh.cpp */,
 				EF7B8F101DEC869A008D2A73 /* Mesh.h */,
 				EF7B8F111DEC869A008D2A73 /* MeshGroup.cpp */,
@@ -212,13 +212,13 @@
 		EF7B8F691DEC8F20008D2A73 /* core-util */ = {
 			isa = PBXGroup;
 			children = (
-				EF54FA721DECB8D000EF733F /* Gradient.h */,
+				EF0FC1291DF0FA6400AA0EA6 /* CoreMath.cpp */,
+				EF0FC12A1DF0FA6400AA0EA6 /* CoreMath.h */,
+				EF0FC12B1DF0FA6400AA0EA6 /* Gradient.hpp */,
 				EF7B8F6E1DEC9C86008D2A73 /* MeshHelpers.cpp */,
 				EF7B8F6F1DEC9C86008D2A73 /* MeshHelpers.h */,
 				EF7B8F631DEC8F1C008D2A73 /* GeomEater.cpp */,
 				EF7B8F641DEC8F1C008D2A73 /* GeomEater.h */,
-				EF7B8F651DEC8F1C008D2A73 /* Math.h */,
-				EF7B8F6A1DEC97B4008D2A73 /* Math.cpp */,
 				EF7B8F661DEC8F1C008D2A73 /* Node.hpp */,
 				EF7B8F671DEC8F1C008D2A73 /* NoiseWalker.hpp */,
 			);
@@ -292,9 +292,9 @@
 				A35DB991D6D14D269767DB3F /* PollenProjectApp.cpp in Sources */,
 				EF7B8F681DEC8F1C008D2A73 /* GeomEater.cpp in Sources */,
 				EF7B8F541DEC8E2E008D2A73 /* MeshBuilds.cpp in Sources */,
-				EF7B8F6B1DEC97B4008D2A73 /* Math.cpp in Sources */,
 				EF7B8F271DEC869A008D2A73 /* Vertex.cpp in Sources */,
 				EF6936981DE432F10010239C /* Pollen.cpp in Sources */,
+				EF0FC12C1DF0FA6400AA0EA6 /* CoreMath.cpp in Sources */,
 				EF7B8F201DEC869A008D2A73 /* MeshGroup.cpp in Sources */,
 				EF7B8F1F1DEC869A008D2A73 /* Mesh.cpp in Sources */,
 			);
