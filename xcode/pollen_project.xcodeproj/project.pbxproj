@@ -21,6 +21,8 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A35DB991D6D14D269767DB3F /* PollenProjectApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3715B77774C44EA9F30B179 /* PollenProjectApp.cpp */; };
 		EF0FC12C1DF0FA6400AA0EA6 /* CoreMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF0FC1291DF0FA6400AA0EA6 /* CoreMath.cpp */; };
+		EF54FA841DEDC1D300EF733F /* f_lightPass.glsl in Resources */ = {isa = PBXBuildFile; fileRef = EF54FA821DEDC1D300EF733F /* f_lightPass.glsl */; };
+		EF54FA851DEDC1D300EF733F /* v_passThrough.glsl in Resources */ = {isa = PBXBuildFile; fileRef = EF54FA831DEDC1D300EF733F /* v_passThrough.glsl */; };
 		EF6936981DE432F10010239C /* Pollen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF6936961DE432F10010239C /* Pollen.cpp */; };
 		EF7B8F1F1DEC869A008D2A73 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F0F1DEC869A008D2A73 /* Mesh.cpp */; };
 		EF7B8F201DEC869A008D2A73 /* MeshGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF7B8F111DEC869A008D2A73 /* MeshGroup.cpp */; };
@@ -55,6 +57,8 @@
 		EF0FC12B1DF0FA6400AA0EA6 /* Gradient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Gradient.hpp; path = "../../../cinder/blocks/core-util/Gradient.hpp"; sourceTree = "<group>"; };
 		EF0FC12D1DF0FA6D00AA0EA6 /* MathBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathBase.h; sourceTree = "<group>"; };
 		EF54FA811DECC73100EF733F /* Item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Item.hpp; path = "../../cinder/blocks/core-util/Item.hpp"; sourceTree = "<group>"; };
+		EF54FA821DEDC1D300EF733F /* f_lightPass.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = f_lightPass.glsl; path = ../resources/f_lightPass.glsl; sourceTree = "<group>"; };
+		EF54FA831DEDC1D300EF733F /* v_passThrough.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = v_passThrough.glsl; path = ../resources/v_passThrough.glsl; sourceTree = "<group>"; };
 		EF6936961DE432F10010239C /* Pollen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pollen.cpp; path = ../src/Pollen.cpp; sourceTree = "<group>"; };
 		EF6936971DE432F10010239C /* Pollen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pollen.h; path = ../src/Pollen.h; sourceTree = "<group>"; };
 		EF7B8F0C1DEC869A008D2A73 /* buildmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buildmesh.h; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EF54FA821DEDC1D300EF733F /* f_lightPass.glsl */,
+				EF54FA831DEDC1D300EF733F /* v_passThrough.glsl */,
 				57E789FA45894DA7B50CA563 /* CinderApp.icns */,
 				DBC3393AE824478B864F1AA6 /* Info.plist */,
 			);
@@ -277,7 +283,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF54FA841DEDC1D300EF733F /* f_lightPass.glsl in Resources */,
 				7A699A03ED72428B93417E8F /* CinderApp.icns in Resources */,
+				EF54FA851DEDC1D300EF733F /* v_passThrough.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

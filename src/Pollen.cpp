@@ -50,7 +50,17 @@ void Pollen::generate() {
 
 	auto spikePoints = pointsOnSphere(mNumSpines);
 
-	auto modifiedBase = base >> geom::AttribFn<vec3, vec3>(geom::Attrib::POSITION, geom::Attrib::POSITION, [this, & spikePoints] (vec3 inPos) {
+	auto modifiedBase = base >> geom::AttribFn<vec3, vec3>(geom::Attrib::POSITION, geom::Attrib::POSITION, [this] (vec3 inPos) {
+		float angle = fmax(glm::angle(inPos, vec3(1, 0, 0)), 0.05f);
+		// return inPos + vec3(0.5 * cos(angle) * inPos.x, inPos.y, 0.5 * sin(angle) * inPos.z);
+		float xfactor = map(cos(4.0 * M_PI * angle), -1, 1, 0.5, 1);
+		float zfactor = map(sin(4.0 * M_PI * angle), -1, 1, 0.5, 1);
+		// return inPos * vec3(xfactor, 1.0, zfactor);
+		// return inPos * xfactor;
+		return inPos;
+	});
+
+	modifiedBase = modifiedBase >> geom::AttribFn<vec3, vec3>(geom::Attrib::POSITION, geom::Attrib::POSITION, [this, & spikePoints] (vec3 inPos) {
 		float nearestAngle = glm::angle(inPos, spikePoints.at(0));
 		float nearestDistance = distance2(inPos, spikePoints.at(0));
 		for (auto & spike : spikePoints) {

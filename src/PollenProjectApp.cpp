@@ -50,7 +50,7 @@ public:
 	CameraPersp mCamera;
 	CameraUi mUiCamera;
 
-	gl::GlslProgRef mShader;
+	gl::GlslProgRef mLambertShader;
 
 	std::vector<Blob> mPollenBalls;
 
@@ -74,7 +74,11 @@ void PollenProjectApp::setup()
 	mCamera.lookAt(vec3(0, 0, 30), vec3(0), vec3(0, 1, 0));
 	mUiCamera = CameraUi(&mCamera, getWindow());
 
-	mShader = gl::getStockShader(gl::ShaderDef().lambert().color());
+	mLambertShader = gl::GlslProg::create(loadResource("v_passThrough.glsl"), loadResource("f_lightPass.glsl"));
+
+	gl::getStockShader(gl::ShaderDef().lambert().color());
+
+	addPollen();
 }
 
 void PollenProjectApp::addPollen() {
@@ -82,7 +86,7 @@ void PollenProjectApp::addPollen() {
 	theBlob.setSpineDistance(mSpineRadius);
 	theBlob.generate();
 
-	mPollenBalls.push_back(Blob(vec3(0), randVec3() * 0.08f, gl::Batch::create(theBlob.getMesh(), mShader)));
+	mPollenBalls.push_back(Blob(vec3(0), randVec3() * 0.08f, gl::Batch::create(theBlob.getMesh(), mLambertShader)));
 }
 
 void PollenProjectApp::mouseDown( MouseEvent event )
@@ -97,15 +101,15 @@ void PollenProjectApp::keyDown(KeyEvent event) {
 
 void PollenProjectApp::update()
 {
-	for (auto & blob : mPollenBalls) {
-		blob.update();
-	}
+	// for (auto & blob : mPollenBalls) {
+	// 	blob.update();
+	// }
 
-	if (getElapsedFrames() % 120 == 0) {
-		addPollen();
-	}
+	// if (getElapsedFrames() % 120 == 0) {
+	// 	addPollen();
+	// }
 
-	mPollenBalls.erase(std::remove_if(mPollenBalls.begin(), mPollenBalls.end(), [] (Blob & ball) { return length2(ball.mNode.position()) >= 10000.f; }), mPollenBalls.end());
+	// mPollenBalls.erase(std::remove_if(mPollenBalls.begin(), mPollenBalls.end(), [] (Blob & ball) { return length2(ball.mNode.position()) >= 10000.f; }), mPollenBalls.end());
 }
 
 void PollenProjectApp::draw()
@@ -113,8 +117,6 @@ void PollenProjectApp::draw()
 	gl::clear( Color( 0, 0, 0 ) ); 
 
 	gl::setMatrices(mCamera);
-
-	mShader->bind();
 
 	for (auto & blob : mPollenBalls) {
 		blob.draw();
